@@ -1,0 +1,239 @@
+company: NewLife
+products:
+- article_number: 9658
+  category:
+    category: Электроника
+    subcategory: Телевизоры
+  name: Samsung QE55Q80AAU
+  description: 55 дюймов, смарт тв, 4K, QLED, HDR, черненое серебро, 120 Гц
+  main_params:
+    color: черненое серебро
+    country: корея
+    height: 0
+    length: 0
+    manufacturer: Samsung
+    warranty: 12
+    weight: 0
+    width: 0
+  parameters:
+    диагональ экрана, дюйм: 55
+    разрешение: 4K
+    смарт тв: да
+    экосистема: Tizen
+  price: 87000
+  price_rrc: 99000
+  quantity: 30
+
+- article_number: 9856
+  category:
+    category: Электроника
+    subcategory: Телевизоры
+  name: BBK 39LEX-7289/TS2C 2020 LED
+  description: 39" Телевизор BBK 39LEX-7289/TS2C 2020 LED на платформе Яндекс.ТВ, черный
+  main_params:
+    color: черненый
+    country: Россия
+    height: 556
+    length: 885
+    manufacturer: BBK
+    warranty: 12
+    width: 66
+  parameters:
+    диагональ экрана, дюйм: 55
+    разрешение: 1366x768
+    смарт тв: да
+    экосистема: Яндекс.ТВ
+    стандарт крепления VESA, мм: 100×100
+  price: 22000
+  price_rrc: 27000
+  quantity: 50
+
+- article_number: 11221
+  category:
+    category: Электроника
+    subcategory: Ноутбуки
+  name: Lenovo IdeaPad 3 15ITL6
+  description: Ноутбук Lenovo IdeaPad 3 15ITL6 Core i3 1115G4 8Gb SSD512Gb Intel UHD Graphics 15.6" IPS FHD (1920x1080) noOS grey WiFi BT Cam 82H80285RE
+  main_params:
+    color: серебро
+    country: китай
+    manufacturer: Lenovo
+    warranty: 12
+  parameters:
+    Память RAM, gb: 8
+    Экран, дюйм: 15,6
+    Процессор: Intel  Core i3 1115G4
+    Тип матрицы: IPS
+  price: 45000
+  price_rrc: 50000
+  quantity: 150
+
+- article_number: 1111
+  category:
+    category: Электроника
+    subcategory: Ноутбуки
+  name: ASUS Zenbook Pro Duo
+  description: '15.6" Ноутбук ASUS Zenbook Pro Duo 15 OLED UX582ZW-H2021X 3840x2160, Intel Core i7 12700H 2.3 ГГц, RAM 32 ГБ, SSD 1 ТБ, NVIDIA GeForce RTX 3070 Ti, Windows 11 Pro, 90NB0Z21-M001P0, синий'
+  main_params:
+    color: синий
+    country: китай
+    height: 0
+    length: 0
+    manufacturer: asus
+    warranty: 12
+    weight: 0
+    width: 0
+  parameters:
+    Память RAM, gb: 32
+    Экран, дюйм: 15,6
+    Операционная система: Windows 11 Pro
+    Процессор: Intel Core i7 12700H 2.3 ГГц
+  price: 350000
+  price_rrc: 390000
+  quantity: 100
+
+- article_number: 22552
+  category:
+    category: Электроника
+    subcategory: Смартфоны
+  name: Xiaomi 12
+  description: Смартфон Xiaomi 12 12/256 ГБ Global, серый
+  main_params:
+    color: серый
+    country: китай
+    manufacturer: Xiaomi
+    warranty: 12
+    weight: 180
+  parameters:
+    Память RAM, gb: 12
+    Память встроенная, gb: 256
+    Аккумулятор, мА·ч: 4500
+    Экран, дюйм: 6,28
+    Операционная система: android
+    Процессор: Qualcomm Snapdragon 8 Gen1
+  price: 370000
+  price_rrc: 45000
+  quantity: 80
+
+
+- article_number: 209856
+  category:
+    category: Электроника
+    subcategory: Смартфоны
+  name: Apple iPhone 14
+  description: Смартфон Apple iPhone 14 128 ГБ, тёмная ночь
+  main_params:
+    color: черный
+    country: китай
+    manufacturer: Apple
+    warranty: 12
+    weight: 172
+  parameters:
+    Память RAM, gb: 6
+    Память встроенная, gb: 128
+    Аккумулятор, мА·ч: 3279
+    Экран, дюйм: 6.1
+    Операционная система: ios
+  price: 55000
+  price_rrc: 65000
+  quantity: 60
+
+- article_number: 785633
+  category:
+    category: Бытовая техника
+    subcategory: Пылесосы
+  name: Робот-пылесос Roborock S7
+  description: 'Новая конструкция платформы с микрофиброй автоматически поднимается при обнаружении ковров. Больше нет необходимости ставить запретные зоны при влажной уборке.
+Улучшенная центральная щетка, которая еще лучше собирает мусор, не наматывая его на себя.
+Используя ультразвук, Roborock S7 распознает ковры с необычайной точностью. После первой уборки робот-пылесос построит карту помещения, на которой можно посмотреть все имеющиеся ковры. В зависимости от высоты ворса, Вы можете пропылесосить ковер или установить на него запретную зону.'
+  main_params:
+    color: белый
+    country: китай
+    manufacturer: Xiaomi
+    warranty: 12
+  parameters:
+    тип уборки: сухая и влажная
+    питание: аккумулятор
+    умный дом: да
+    экосистема: mi home
+  price: 29000
+  price_rrc: 36000
+  quantity: 36
+
+- article_number: 778963
+  category:
+    category: Бытовая техника
+    subcategory: Пылесосы
+  name: REDMOND RV-UR378
+  description: Беспроводной вертикальный пылесос REDMOND RV-UR378, серый, 100вт
+  main_params:
+    color: серый
+    country: китай
+    manufacturer: REDMOND
+    warranty: 12
+  parameters:
+    тип уборки: сухая
+    питание: аккумулятор
+    объем пылесборника: 0.8 л
+  price: 6000
+  price_rrc: 8000
+  quantity: 80
+
+- article_number: 715861
+  category:
+    category: Бытовая техника
+    subcategory: Стиральные машины
+  name: Bosch WAN 2427GPL
+  description: 'Автоматическая машинка, функции: отложенный старт, сигнал окончания стирки, автовзвешивание, выбор скорости отжима, установка времени завершения стирки, выбор температуры стирки, защита от детей, открывание люка на 180 градусов, дисплей, подсветка дисплея'
+  main_params:
+    color: белый
+    country: германия
+    manufacturer: Bosch
+    warranty: 12
+  parameters:
+    загрузка, кг: 7
+    скорость отжима, об/мин: 1200
+  price: 45000
+  price_rrc: 51000
+  quantity: 30
+
+- article_number: 589875
+  category:
+    category: Строительство и ремонт
+    subcategory: Электроинструменты
+  name: Шуруповерт Makita DF457DWE
+  description: 'Шуруповерт аккумуляторный Makita подходит для использования в профессиональных целях. Позволяет без усилий вворачивать шурупы и сверлить отверстия в разных материалах. Выносливый электродвигатель с угольными щетками обеспечивает крутящий момент до 42 Нм. Источник питания инструмента — литий-ионный аккумулятор емкостью 1.5 Ач и напряжением 18 В. Зарядное устройство позволяет полностью зарядить его в течение часа.'
+  main_params:
+    color: синий
+    country: китай
+    manufacturer: Makita
+    warranty: 12
+  parameters:
+    напряжение аккумулятора, В: 18
+    максимальный крутящий момент, Н·м: 42
+    тип патрона: быстрозажимной
+  price: 7500
+  price_rrc: 11500
+  quantity: 60
+
+- article_number: 256588
+  category:
+    category: Фото-видеотехника
+    subcategory: Фотоаппараты
+  name: Canon EOS 5D Mark IV Body
+  description: 'Зеркальный полнокадровый фотоаппарат  31.7 МП, Full frame (36 x 24 мм),  Режимы съемки: запись видео, Time-lapse, серийная съемка'
+  main_params:
+    color: черный
+    country: япония
+    manufacturer: Canon
+    warranty: 12
+  parameters:
+    тип камеры: зеркальная
+    матрица МП: 7 
+    размер матрицы, мм: 36 x 24
+    байонет: Canon EF
+    съемка видео: 4096x2160
+    видоискатель: зеркальный (TTL)
+  price: 135000
+  price_rrc: 142000
+  quantity: 50

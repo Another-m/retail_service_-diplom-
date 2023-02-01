@@ -1,0 +1,115 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+
+
+<h2 style="text-align: center;"> {{ text_link }} </h2>
+
+<h3 style="margin: 15px; "> Ваши данные </h3>
+
+<form action="/profile" method="GET" class="form_auth">
+    <p><label>Идентификатор</label><input type="text" name="username" value="id{{ user_info.id }}"/>
+    <p><label>Дата регистрации</label><input type="text" name="created_at" value="{{ user_info.date_joined }}"/>
+</form>
+
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="username">
+    <p><label>Логин</label><input type="text" name="value" value="{{ user_info.username }}"/>
+
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="firstname">
+    <p><label>Имя</label><input type="text" name="value" value="{{ user_info.firstname }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="lastname">
+    <p><label>Фамилия</label><input type="text" name="value" value="{{ user_info.lastname }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="email">
+    <p><label>E-mail</label><input type="email" name="value" value="{{ user_info.email }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="post">
+    <p><label>Должность</label><input type="text" name="value" value="{{ user_info.users.post }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+
+
+<h3 style="margin: 15px; "> Ваши компании </h3>
+
+
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="name">
+    <p><label>Наименование</label><input type="text" name="value" value="{{ user_info.users.company.name }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="tin">
+    <p><label>ИНН</label><input type="integer" name="value" value="{{ user_info.users.company.tin }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <p><label>Тип контрагента</label>
+    <input type="hidden" name="change" value="counterparty_type">
+    <select name="value" value="{{ user_info.users.company.counterparty_type }}" id="id_counterparty_type">
+        <option value="buyer">Покупатель</option>
+        {% if user_info.users.company.counterparty_type == "supplier" %}
+        <option value="supplier" selected="">Поставщик</option>
+        {% else %}
+        <option value="supplier">Поставщик</option>
+        {% endif %}
+    </select>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="phone">
+    <p><label>Номер телефона</label><input type="text" name="value" value="{{ user_info.users.company.phone }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="address">
+    <p><label>Адрес</label><input type="text" name="value" value="{{ user_info.users.company.address }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="veb_site">
+    <p><label>Веб-сайт</label><input type="text" name="value" value="{{ user_info.users.company.veb_site }}"/>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+<form action="/profile" method="GET" class="form_auth">
+    <input type="hidden" name="change" value="description">
+        <p><label>Описание</label><textarea name="value" cols="36" rows="6" class="vLargeTextField" id="id_description">{{ user_info.users.company.description }}</textarea>
+        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>
+</form>
+
+
+
+<!--{% if psw %}-->
+<!--<form action="/profile" method="POST" class="form">-->
+<!--    <p><label>Пароль</label><input type="password" name="password" value="{{ psw }}"/>-->
+<!--    <p><label>Повторить пароль</label><input type="password" name="password2" value=""/>-->
+<!--        <input type="submit" value="Подтвердить смену пароля">-->
+<!--</form>-->
+<!--{% else %}-->
+<!--<form action="/profile" method="POST" class="form">-->
+<!--    <p><label>Пароль</label><input type="password" name="psw" value="******"/>-->
+<!--        <a onclick="this.closest('form').submit();return false;" href="">Изменить</a>-->
+<!--</form>-->
+<!--{% endif %}-->
+<!--<div style="height: 60px; width: 360px; top: 50%; left: 50%; display: table;">-->
+<!--    <a style="margin: 0 0 0 5px; color: red; " href="?delete=confirm_request">Удалить профиль</a>-->
+<!--    {% if auth.delete %}-->
+<!--        <br>-->
+<!--        <div style="border: 1.5px solid #d54; margin: 10px 0 0 0; background: #FF9C9C; padding: 9px 0 9px 0">-->
+<!--            <a style="margin: 0 0 0 5px; color: #cc0011; font-weight:bold;" href="?delete=confirm_request&confirm_del=yes">Подтвердите удаление профиля</a>-->
+<!--        </div>-->
+<!--    {% endif %}-->
+<!--</div>-->
+
+
+{% endblock %}

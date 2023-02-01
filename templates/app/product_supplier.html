@@ -1,0 +1,83 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+
+{% if is_exist %}
+<div class="item_1">
+    <div style="font-weight: bold; border-bottom: 1px solid #ccc; padding: 0; ">
+        <p style="display: inline-block; "> {{ product.product.name }} </p>
+                <p style="font-size: 11pt; display: inline-block; float: right; "> Компания-поставщик:
+                <a href="/{{ item.id }}" style="font-style: italic; font-size: 11pt; margin-right: 15px; "> {{ product.company.name }}</a></p>
+    </div>
+    <form action="{{ request.META.PATH_INFO }}" method="POST" class="form_auth">
+        {% csrf_token %}
+        <p style="font-size: 11pt; font-weight: bold; margin: 20px auto 35px 25px;">Информация о товаре</p>
+        <p><label>Категория</label><input type="text" name="category" value="{{ product.product.subcategory.category }}">
+        <p><label>Подкатегория</label><input type="text" name="subcategory" value="{{ product.product.subcategory.subcategory }}">
+        <p><label>Артикул</label><input type="text" name="article_number" value="{{ product.product.article_number }}">
+        <p><label>Наименование</label><input type="text" name="product" value="{{ product.product.name }}">
+        <p><label>Описание</label><textarea name="description" cols="32" rows="4" class="vLargeTextField">{{ product.product.description }}</textarea>
+        <p><label>Цена, руб</label><input type="number" name="price" value="{{ product.price }}">
+        <p><label>Цена (ррц), руб</label><input type="number" name="price_rrc" value="{{ product.price_rrc }}">
+        <p><label>Количество (в наличи)</label><input type="number" name="quantity" value="{{ product.quantity }}">
+        <p><input type="hidden" name="is_active" value="1" style="margin-left: 25px;">
+        {% if product.is_active %}
+            <label>Отключить видимость товара</label><input type="checkbox" name="active_ok" checked style="margin-left: 25px;">
+        {% else %}
+            <label>Включить видимость товара</label><input type="checkbox" name="active_ok" style="margin-left: 25px;">
+        {% endif %}
+        <input type="submit" class="form_auth" value="Сохранить" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px; margin-left: 25px; ">
+
+        <p style="font-size: 11pt; font-weight: bold; margin: 20px auto 35px 25px;">Основные характеристики</p>
+        <p><label>Цвет</label><input type="text" name="color" value="{{ main_params.color }}">
+        <p><label>Вес, гр</label><input type="number" name="weight" value="{{ main_params.weight }}">
+        <p><label>Высота, мм</label><input type="number" name="height" value="{{ main_params.height }}">
+        <p><label>Длина, мм</label><input type="number" name="length" value="{{ main_params.length }}">
+        <p><label>Ширина, мм</label><input type="number" name="width" value="{{ main_params.width }}">
+        <p><label>Гарантия, мес</label><input type="number" name="warranty" value="{{ main_params.warranty }}">
+        <p><label>Производитель</label><input type="text" name="manufacturer" value="{{ main_params.manufacturer }}">
+        <p><label>Cтрана изготовитель</label><input type="text" name="country" value="{{ main_params.country }}">
+        <input type="submit" class="form_auth" value="Сохранить" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+    </form>
+
+    <p style="font-size: 11pt; font-weight: bold; margin: 20px auto 35px 25px;">Дополнительные характеристики</p>
+    {% for param in other_params %}
+        <form action="{{ request.META.PATH_INFO }}" method="POST" class="form_auth" style="display: inline-block; margin: -5px 0;">
+                {% csrf_token %}
+                <input type="hidden" name="other_param" value="{{ param.category_parameters.id }}">
+                <p><label>{{ param.category_parameters.name }}</label><input type="text" name="value_param" value="{{ param.value }}">
+                <input type="submit" class="form_auth" value="Изменить" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+        </form>
+        <form action="" method="POST" style="display: inline-block;  margin: -5px 5px;">
+                {% csrf_token %}
+                <input type="hidden" name="other_param" value="{{ param.category_parameters.id }}">
+                <input type="hidden" name="delete" value="{{ param.id }}"/>
+                <a href="" onclick="this.closest('form').submit();return false;" style="font-style: italic; color: #d40; ">Удалить</a>
+        </form>
+        <br>
+    {% endfor %}
+
+    <form action="{{ request.META.PATH_INFO }}" method="POST" class="form_auth">
+        {% csrf_token %}
+        <p style="font-size: 11pt; font-weight: bold; margin: 20px auto 35px 25px;"> Создать новый </p>
+        <p><label> Добавить параметр </label><input list="category_parameters" name="new_param" value="">
+        <datalist id="category_parameters">
+            {% for param in category_params %}
+                <option value="{{ param.name }}">
+            {% endfor %}
+        </datalist>
+        <input type="text" name="value" value="">
+        <input type="submit" class="form_auth" value="Добавить" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+    </form>
+                <br>
+{% else %}
+    <p> Товар не найден </p>
+{% endif %}
+
+
+   </div>
+</div>
+
+
+{% endblock %}

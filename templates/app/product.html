@@ -1,0 +1,67 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+
+<div class="item_1">
+    <div style="font-weight: bold; border-bottom: 1px solid #ccc; padding: 0; ">
+        <p> {{ product.product.name }} </p>
+    </div>
+    <p> Категория: {{ product.product.subcategory.subcategory }} </p>
+    <p> Артикул: {{ product.product.article_number }} </p>
+
+    <div style="line-height: 0.9; ">
+        <br>
+        <p style="font-style: italic; "> Характеристики товара: </p>
+        {% if main_params.color %}
+            <p> Цвет: {{ main_params.color }} </p>
+        {% endif %}
+        {% if main_params.weight %}
+            <p> Вес, гр: {{ main_params.weight }} </p>
+        {% endif %}
+        {% if main_params.height %}
+            <p> Высота, мм: {{ main_params.height  }} </p>
+        {% endif %}
+        {% if main_params.length %}
+            <p> Длина, мм: {{ main_params.length  }} </p>
+        {% endif %}
+        {% if main_params.width %}
+            <p> 'Ширина, мм: {{ main_params.width  }} </p>
+        {% endif %}
+        {% if main_params.warranty %}
+            <p> Гарантия, мес: {{ main_params.warranty  }} </p>
+        {% endif %}
+        {% if main_params.manufacturer %}
+            <p> Производитель: {{ main_params.manufacturer  }} </p>
+        {% endif %}
+        {% if main_params.country %}
+            <p> Cтрана изготовитель: {{ main_params.country  }} </p>
+        {% endif %}
+        <p style="font-style: italic; "> Дополнительные характеристики: </p>
+        {% for param in other_params %}
+        <p> {{ param.category_parameters.name }}: {{ param.value }} </p>
+        {% endfor %}
+        <br>
+        <p style="font-style: italic; "> Описание: </p>
+        <p> {{ product.product.description }} </p>
+    </div>
+    <div style=" top: 15px; position: relative; overflow: hidden; ">
+        <p style="font-size: 11pt; "> Поставщик:
+        <a href="/{{ item.id }}" style="font-style: bold; font-size: 11pt; "> {{ product.company.name }}</a></p>
+
+        <p style="font-size: 12pt; font-weight: bold; margin: 20px auto 35px 25px;"> Цена: {{ product.price|floatformat:"2" }} руб. </p>
+    </div>
+    <div class="choose">
+        <form action="{{ request.META.PATH_INFO }}" method="POST" class="form">
+            {% csrf_token %}
+            <a onclick="this.closest('form').submit();return false;" href="">Выбрать</a>
+            <input type="hidden" name="choose" value="{{ item.id }}">
+            <input type="number" name="quantity" value="1"/>шт.
+        </form>
+                <br>
+
+   </div>
+</div>
+
+
+{% endblock %}

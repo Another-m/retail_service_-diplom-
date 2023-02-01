@@ -1,0 +1,55 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div style="overflow: hidden; ">
+    {% for item in products %}
+    <div class="item">
+        <p style="border-bottom: 1px solid #ccc; "> <a href="/product/{{ item.id }}"> {{ item.product.name }}</a></p>
+        <p> {{ item.product.description }} </p>
+        <div class="product_price">
+            <p style="font-size: 11pt; "> Поставщик:
+            <a href="/{{ item.id }}" style="font-style: bold; font-size: 11pt; "> {{ item.company.name }}</a></p>
+            <p> {{ item.price }} руб. </p>
+        </div>
+        {% if request.session.type == "buyer" %}
+        <div class="choose">
+            <form action="{{ request.path }}?{{ request.META.QUERY_STRING }}" method="POST" class="form">
+                {% csrf_token %}
+                <a onclick="this.closest('form').submit();return false;" href="">Выбрать</a>
+                <input type="hidden" name="choose" value="{{ item.id }}">
+                <input type="number" name="quantity" value="1"/>шт.
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+
+    {% if prev_page_url %}
+        <button class="button page-button" onclick="window.location.href='{{ prev_page_url }}'"><< Назад</button>
+    {% endif %}
+        <form action="{{ request.path }}" method="GET" class="form" style="display: inline-block; margin: 0; ">
+            {% if request.GET.seller %}
+                {% for supplier in filters.suppliers.selected_suppliers %}
+                    <input type="hidden" name="seller" value="{{ supplier }}">
+                {% endfor %}
+            {% endif %}
+            <input type="hidden" name="pieces" value="{{ quantity_lines }}">
+            <label>страница</label><input type="number" name="page" value="{{ current_page }}" onclick=""><label>из {{ count_page }}</label>
+        </form>
+    {% if next_page_url %}
+        <button class="button page-button" onclick="window.location.href='{{ next_page_url }}'">Дальше >></button>
+    {% endif %}
+
+        <div style="float: right; display: inline-block;">
+            <b> Количество товаров на странице </b>
+            <button class="button page-button" onclick="window.location.href='?pieces=12&page={{ current_page }}'"> 12 </button>
+            <button class="button page-button" onclick="window.location.href='?pieces=25&page={{ current_page }}'"> 25 </button>
+            <button class="button page-button" onclick="window.location.href='?pieces=50&page={{ current_page }}'"> 50 </button>
+        </div>
+</div>
+
+{% endblock %}

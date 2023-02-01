@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="main">
+    {% for item in products %}
+    <div class="item_list">
+       <p style="font-weight: bold; border-bottom: 1px solid #ccc;">
+           <a href="/products/{{ item.product.id }}"> {{ item.product.product.name }} </a>
+       </p>
+       <p> {{ item.product.product.description|slice:":60" }}... </p>
+       <p> {{ item.product.price }} руб </p>
+       <div class="choose">
+            <form action="{{ request.META.PATH_INFO }}" method="GET" class="form">
+                <a onclick="this.closest('form').submit();return false;" href="">Изменить количество</a>
+                <input type="hidden" name="choose" value="{{ item.product.id }}">
+                <input type="number" name="quantity" value="{{ item.quantity }}"/>шт.
+            </form>
+            <a href="?choose={{ item.id }}&del=1"> Убрать из заказа </a>
+       </div>
+    </div>
+    {% endfor %}
+
+    {% if count.count %}
+    <div class="item_list">
+        <div class="sum">
+             <p style="display: inline-block;">Итоговая стоимость: {{ count.main_sum }} руб </p>
+        </div>
+    </div>
+        <div class="pay_button">
+            {% if request.META.PATH_INFO|cut:"/order/"|urlencode == request.session.basket|urlencode %}
+            <a href="/clear/{{ request.session.basket }}">Очистить заказ</a>
+            {% endif %}
+            <form action="/order/{{ request.session.basket }}" method="POST">
+                  {% csrf_token %}
+                <input type="hidden" name="change" value="{{ request.session.basket }}">
+                <input type="hidden" name="status" value="new">
+                <button type="submit">Заказать</button>
+            </form>
+        </div>
+    {% else %}
+        <p> Корзина пуста </p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

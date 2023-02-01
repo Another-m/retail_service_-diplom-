@@ -1,0 +1,93 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+
+<div style="margin: 25px; ">
+  <center><h2> Заказы </h2></center>
+  <form action="/cabinet" method="GET" class="form_auth">
+      <input type="hidden" name="date" value="choose">
+      <p><label>Показать заказы в выбранном промежутке</label>
+          <input type="date" name="date_from" value=""/> - <input type="date" name="date_to" value=""/>
+          <input type="submit" class="form_auth" value="Выбрать" style="border: 1px solid #333; color: #420; font-weight: bold; background: #eca; ">
+          <a href="?date=all" style="margin: 20px; color: #950; ">За все время</a>
+  </form>
+  <p style="color: #886622; margin: 10px auto 30px 30px; "> Период: {{ interval }}</p>
+
+  {% if request.session.type == "buyer" %}
+    <table>
+      <caption> Ваши заказы </caption>
+      <tr>
+        <th class="table">№ </th>
+        <th class="table">Дата заказа</th>
+        <th class="table">Статус</th>
+        <th class="table">Количество позиций</th>
+        <th class="table">Сумма, руб</th>
+
+      </tr>
+      {% for order in orders %}
+      <tr>
+        <td class="table">
+          <a href="/order/{{ order.id }}">{{ order.id }}</a>
+        </td>
+        <td class="table">
+          <a href="/order/{{ order.id }}">{{ order.datetime }}</a>
+        </td>
+        <td class="table">{{ order.get_status_display }}</td>
+        <td class="table">{{ order.count }}</td>
+        <td class="table">{{ order.total }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <table>
+      <caption>Заказанные товары </caption>
+      <tr>
+        <th rowspan="2"  class="table">Дата заказа</th>
+        <th colspan="2"   class="table">Товар</th>
+        <th colspan="4"   class="table">Заказ</th>
+      </tr>
+      <tr>
+        <td class="table">Наименование</td>
+        <td class="table">Цена</td>
+        <td class="table">Количество</td>
+        <td class="table">Заказчик</td>
+        <td class="table">№_</td>
+        <td class="table">Статус</td>
+      </tr>
+      {% for order in orders %}
+      <tr>
+        <td class="table">{{ order.order.datetime }}</td>
+        <td class="table">{{ order.product.product.name }}</td>
+        <td class="table">{{ order.product.price }}</td>
+        <td class="table">{{ order.quantity }}</td>
+        <td class="table">{{ order.order.user }} ({{ order.order.user.users.company.name }})</td>
+        <td class="table">{{ order.order.id }}</td>
+        <td class="table">
+          <form action="/cabinet" method="GET" class="form_auth">
+            <input type="hidden" name="change" value="{{ order.order.id }}">
+              <select name="status" value="{{ order.order.get_status_display }}">
+              {% for element1, element2 in status %}
+                {% if element2 == order.order.get_status_display %}
+                  <option value="{{ element1 }}" selected="">{{ element2 }}</option>
+                {% else %}
+                  <option value="{{ element1 }}">{{ element2 }}</option>
+                {% endif %}
+              {% endfor %}
+              </select>
+            <input type="submit" class="form_auth" value="Изменить" style="border: 1px solid #333; color: #420; font-weight: bold; background: #eca; ">
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+
+  {% endif %}
+</div>
+{% else %}
+  <h3> Вы не авторизованы </h3>
+{% endif %}
+
+
+{% endblock %}
+

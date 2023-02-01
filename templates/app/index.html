@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+   <h3>Поставщики</h3>
+<div class="suppliers">
+{% for supplier in suppliers %}
+<div class="supplier">
+    <p style="border-bottom: 1px solid #ccc; font-weight: bold; ">{{ supplier.name }}</p>
+    {{ supplier.description }}
+</div>
+{% endfor %}
+</div>
+
+<h3>Категории товаров</h3>
+{% for category in categories %}
+    <li style="font-weight: bold; margin-left: 5px; list-style: none; ">
+        <a style="text-decoration: none; color: #723010;" href="/products/{{ category.category }}">{{ category.category }}</a>
+    </li>
+        {% for cat in subcategories %}
+            {% if cat.category == category.category %}
+                <li style="margin-left: 10px; ">
+                    <a style="color: #804515;" href="/products/{{ category.category }}/{{ cat.subcategory }}">{{ cat.subcategory }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+{% endfor %}
+
+{% endblock %}
+

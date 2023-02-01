@@ -1,0 +1,27 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h2 style="text-align: center;"> Информация о компании </h2>
+
+<form action="/profile/" method="POST" class="form_auth">
+    {% csrf_token %}
+    <p><label>Наименование *</label><input type="text" name="name" value="" placeholder="" requied />
+    <p><label>Тип контрагента *</label><select name="counterparty_type" value="" requied >
+    <option value="buyer"></option>
+    <option value="buyer">Покупатель</option>
+    <option value="supplier">Поставщик</option>
+     </select>
+<!--    <input type="submit" value="" requied />-->
+    <p><label>Номер телефона</label><input type="text" name="phone" placeholder="7XXXXXXXXXX" value=""/>
+    <p><label>Адрес</label><input type="text" name="address" value=""/>
+    <p><label>Веб сайт</label><input type="text" name="veb_site" value=""/>
+    <p><label>E-mail</label><input type="email" name="email" value=""/>
+    <p><label>Краткое описание</label><textarea name="description" cols="36" rows="6" class="vLargeTextField"></textarea>
+    <input type="hidden" name="id" value="{{ user_info.user.id }}"/>
+    <p><label>Ваша должность</label><input type="text" name="post" value=""/>
+    <br>
+    <p><input type="submit" value="Отправить">
+</form>
+
+{% endblock %}

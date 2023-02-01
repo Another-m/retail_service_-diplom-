@@ -1,0 +1,180 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="item_1" style="padding: 0; max-width: 90%; ">
+    <div class="price_list">
+        <div class="price_left">
+            <p><a href="/add_my_price/"> Добавление товаров </a></p>
+        </div>
+        <div class="price_right">
+            <p><a href="/my_price/"> Все товары </a></p>
+        </div>
+    </div>
+    <br>
+    <p> Загрузите прайс-лист в формате yaml </p>
+    <form action="/add_my_price/" enctype="multipart/form-data" method="POST" class="form_auth">
+         {% csrf_token %}
+          <input type="file" name="file" value="" style="margin-left: 25px;" accept="files/*" />
+          <input type="submit" class="form_auth" value="Загрузить файл" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+            <p {% if message.tags %} class="message-{{ message.tags }}"{% endif %}>{{ message }}
+        {% endfor %}
+    {% endif %}
+    <br>
+    <h3> Добавить товар через форму </h3>
+
+    <form action="/add_my_price/" method="POST" class="form_auth">
+            {% csrf_token %}
+        {% if request.POST.category %}
+            <p><label>Категория</label><input list="category" name="category" value="{{ request.POST.category }}">
+
+            {% if request.POST.subcategory %}
+                <p><label>Подкатегория</label><input list="subcategory" name="subcategory" value="{{ request.POST.subcategory }}">
+
+                {% if request.POST.article_number %}
+                    <p><label> Артикул </label><input type="text" name="article_number" value="{{ request.POST.article_number }}">
+                    {% if request.POST.price %}
+                        <p><label>Товар</label><input type="text" name="product" value="{{ request.POST.product }}">
+                        <p><label>Описание</label><textarea name="description" cols="32" rows="4" class="vLargeTextField">{{ request.POST.description }}</textarea>
+                        <p><label>Цена, руб</label><input type="number" name="price" value="{{ request.POST.price }}">
+                        <p><label>Цена (ррц), руб</label><input type="number" name="price_rrc" value="{{ request.POST.price_rrc }}">
+                        <p><label>Количество (в наличи)</label><input type="number" name="quantity" value="{{ request.POST.quantity }}">
+                    {% else %}
+                        <p><label>Товар</label><input type="text" name="product" value="{{ options_to_choose.products.product.name }}" required>
+                        <p><label>Описание</label><textarea name="description" cols="32" rows="4" class="vLargeTextField">{{ options_to_choose.products.product.description }}</textarea>
+                        {% if options_to_choose.is_exist %}
+                            <p><label>Цена, руб</label><input type="number" name="price" value="{{ options_to_choose.products.price }}">
+                            <p><label>Цена (ррц), руб</label><input type="number" name="price_rrc" value="{{ options_to_choose.products.price_rrc }}">
+                            <p><label>Количество (в наличи)</label><input type="number" name="quantity" value="">
+                            <h3>{{ options_to_choose.is_exist }}</h3>
+                        {% else %}
+                            <p><label>Цена, руб</label><input type="number" name="price" value="" required>
+                            <p><label>Цена (ррц), руб</label><input type="number" name="price_rrc" value="" required>
+                            <p><label>Количество (в наличи)</label><input type="number" name="quantity" value="" required>
+                            <input type="submit" class="form_auth" value="Добавить товар" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+                        {% endif %}
+                    {% endif %}
+
+                {% else %}
+                    <p><label> Артикул </label><input list="products" name="article_number" value="">
+                    <datalist id="products">
+                        {% for product in options_to_choose.products %}
+                            <option value="{{product.article_number}}">
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" class="form_auth" value="Выбрать" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+                    <p><label>Товар</label><input type="text" name="other" value="" readonly>
+                    <p><label>Описание</label><textarea name="other" cols="32" rows="4" class="vLargeTextField" readonly></textarea>
+                    <p><label>Цена</label><input type="number" name="other" value="" readonly>
+                    <p><label>Цена (ррц)</label><input type="number" name="other" value="" readonly>
+                    <p><label>Количество (в наличи)</label><input type="number" name="other" value="" readonly>
+                {% endif %}
+
+            {% else %}
+                <p><label>Подкатегория</label><input list="subcategory" name="subcategory" value="">
+                <datalist id="subcategory">
+                    {% for subcategory in options_to_choose.subcategories %}
+                        <option value="{{subcategory.subcategory}}">
+                    {% endfor %}
+                </datalist>
+                <input type="submit" class="form_auth" value="Выбрать" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+                <p><label> Артикул </label><input type="text" name="other" value="" readonly>
+                <p><label>Товар</label><input type="text" name="other" value="" readonly>
+                <p><label>Описание</label><textarea name="other" cols="32" rows="4" class="vLargeTextField" readonly></textarea>
+                <p><label>Цена</label><input type="number" name="other" value="" readonly>
+                <p><label>Цена (ррц)</label><input type="number" name="other" value="" readonly>
+                <p><label>Количество (в наличи)</label><input type="number" name="other" value="" readonly>
+            {% endif %}
+
+        {% else %}
+            <p><label>Категория</label><input list="category" name="category" value="">
+            <datalist id="category">
+                {% for category in options_to_choose.categories %}
+                    <option value="{{category.category}}">
+                {% endfor %}
+            </datalist>
+        <input type="submit" class="form_auth" value="Выбрать" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+        <p><label>Подкатегория</label><input type="text" name="other" value="" readonly>
+        <p><label>Артикул</label><input type="text" name="other" value="" readonly>
+        <p><label>Товар</label><input type="text" name="other" value="" readonly>
+        <p><label>Описание</label><textarea name="other" cols="32" rows="4" class="vLargeTextField" readonly></textarea>
+        <p><label>Цена</label><input type="number" name="other" value="" readonly>
+        <p><label>Цена (ррц)</label><input type="number" name="other" value="" readonly>
+        <p><label>Количество (в наличи)</label><input type="number" name="other" value="" readonly>
+        {% endif %}
+
+    </form>
+</div>
+{% if request.POST.main_params == 'no_product' %}
+    <div class="item_1" style="padding: 0; max-width: 90%; ">
+        <div style="margin-top: -25px; height: 30px; border-bottom: 1.5px solid #a97; text-align: center; background: #f0decd; line-height: 1.5; color: red; ">
+            <h3>Введены не все обязательные поля</h3>
+        </div>
+    </div>
+{% endif %}
+
+{% if request.POST.price %}
+    <div class="item_1" style="padding: 0; max-width: 90%; ">
+        <div style="margin-top: -25px; height: 30px; border-bottom: 1.5px solid #a97; text-align: center; background: #f0decd; line-height: 1.5;">
+            <h3>Товар успешно добавлен</h3>
+        </div>
+        <form action="/product_supplier/{{ request.POST.article_number }}" method="POST" class="form_auth">
+            {% csrf_token %}
+            <input type="hidden" name="article_number" value="{{ request.POST.article_number }}">
+            <input type="hidden" name="product" value="{{ request.POST.product }}">
+            <input type="hidden" name="description" value="{{ request.POST.description }}">
+            <input type="hidden" name="price" value="{{ request.POST.price }}">
+            <input type="hidden" name="category" value="{{ request.POST.category }}">
+            <input type="hidden" name="subcategory" value="{{request.POST.subcategory }}">
+            <input type="hidden" name="price_rrc" value="{{ request.POST.price_rrc }}">
+            <input type="hidden" name="quantity" value="{{ request.POST.quantity }}">
+
+
+                <p>Основные характеристики</p>
+                <p><label>Цвет</label><input type="text" name="color" value="{{ options_to_choose.main_parameters.color }}">
+            {% if request.POST.color %}
+                <p><label>Вес, гр</label><input type="number" name="weight" value="{{ options_to_choose.main_parameters.weight }}">
+                <p><label>Высота, мм</label><input type="number" name="height" value="{{ options_to_choose.main_parameters.height }}">
+                <p><label>Длина, мм</label><input type="number" name="length" value="{{ options_to_choose.main_parameters.length }}">
+                <p><label>Ширина, мм</label><input type="number" name="width" value="{{ options_to_choose.main_parameters.width }}">
+                <p><label>Гарантия, мес</label><input type="number" name="warranty" value="{{ options_to_choose.main_parameters.warranty }}">
+            {% else %}
+                <p><label>Вес, гр</label><input type="number" name="weight" value="0">
+                <p><label>Высота, мм</label><input type="number" name="height" value="0">
+                <p><label>Длина, мм</label><input type="number" name="length" value="0">
+                <p><label>Ширина, мм</label><input type="number" name="width" value="0">
+                <p><label>Гарантия, мес</label><input type="number" name="warranty" value="0">
+            {% endif %}
+                <p><label>Производитель</label><input type="text" name="manufacturer" value="{{ options_to_choose.main_parameters.manufacturer }}">
+                <p><label>Cтрана изготовитель</label><input type="text" name="country" value="{{ options_to_choose.main_parameters.country }}">
+                <input type="submit" class="form_auth" value="Сохранить" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+
+            <p>Дополнительные характеристики</p>
+            {% for parameter in options_to_choose.other_parameters %}
+            <input type="hidden" name="other_params" value="{{ parameter.category_parameters.id }}">
+            <p><label>{{ parameter.category_parameters.name }}</label><input type="text" name="value_params" value="{{ parameter.value }}" readonly>
+            {% endfor %}
+
+
+
+
+            {% csrf_token %}
+            <p> Создать новый </p>
+
+            <input list="category_parameters" name="new_param" value="">
+            <datalist id="category_parameters">
+                {% for param in options_to_choose.category_parameters %}
+                    <option value="{{ param.name }}">
+                {% endfor %}
+            </datalist>
+            <input type="text" name="value" value="">
+            <input type="submit" class="form_auth" value="Добавить" style="border: 1px solid #333; color: #310; background: #f9f1e1; padding: 2.5px;">
+        </form>
+
+        <br>
+    </div>
+{% endif %}
+
+{% endblock %}
